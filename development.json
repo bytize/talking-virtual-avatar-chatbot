@@ -1,0 +1,16 @@
+{
+	"apps" : [{
+		"name": "Talking Virtual Avatar Chatbot",
+		"script": "app/bootstrap/server",
+		"watch": ["app"],
+		"watch_options": {
+		    "followSymlinks": false,
+		    "usePolling": true
+		},
+		"log_date_format" : "YYYY-MM-DD HH:mm Z",
+		"env": {
+	        "NODE_ENV": "development",
+	        "PORT": 3001
+	    }
+	}]
+}

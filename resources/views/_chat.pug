@@ -1,0 +1,29 @@
+.chat
+	header
+		if user
+			img.img-circle.pull-left(src="https://graph.facebook.com/"+user.id+"/picture?type=small",width=40)
+		else
+			img.img-circle.pull-left(src="/images/no-user.jpg",width=40)
+			
+		h3.pull-left 
+			if user
+				| #{user.name}
+			else
+				| Hi, Guest
+		.pull-right.dropdown(class=user?"":"hide")
+			a(href="#",data-toggle="dropdown")
+				span.glyphicon.glyphicon-option-vertical
+			ul.dropdown-menu
+				li
+					a#js_logout(href="javascript:void();") Logout
+	include _frame
+	.chat-container
+		.chat-body
+			.chat-messages
+	.chat-input
+		#js_siriwave
+		a#js_facebook.btn.btn-primary.btn-lg(href="#",class=user?"hide":"") Login with facebook
+		.input-group(class=user?"":"hide")
+			input#js_message.form-control.input-lg(type="text",data-user=user?user.name:"")
+			span.input-group-btn
+				button#js_send.btn.btn-default.btn-lg Send

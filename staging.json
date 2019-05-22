@@ -1,0 +1,12 @@
+{
+	"apps" : [{
+		"name": "Talking Virtual Avatar Chatbot",
+		"script": "app/bootstrap/server",
+		"watch": ["app"],
+		"log_date_format" : "YYYY-MM-DD HH:mm Z",
+		"env": {
+	        "NODE_ENV": "testing",
+	        "PORT": 3001
+	    }
+	}]
+}

@@ -1,0 +1,34 @@
+{
+	"redis": {
+		"development": {
+			"host": "localhost",
+			"port": 6379,
+			"db": 1
+		},
+		"testing": {
+			"host": "127.0.0.1",
+			"port": 6379,
+			"db": 1
+		},
+		"production": {
+			"host": "localhost",
+			"port": 6379,
+			"db": 1
+		}
+	},
+	"awsCredentials": {
+		"development": {
+			"accessKeyId": "xxxxxx",
+			"secretAccessKey": "xxxxxxx"
+		},
+		"testing": {
+			"accessKeyId": "xxxxx",
+			"secretAccessKey": "xxxxx"
+		},
+		"production": {
+			"accessKeyId": "xxxx",
+			"secretAccessKey": "xxxxx"
+		}
+	},
+	"facebook": "xxxxxx"
+}

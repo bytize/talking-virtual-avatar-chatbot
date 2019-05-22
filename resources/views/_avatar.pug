@@ -1,0 +1,29 @@
+.avatar
+	header
+		img.img-circle.pull-left(src="/images/avatar.png",width=40)
+		h3.pull-left Alize
+		.pull-right.dropdown
+			a(href="#",data-toggle="dropdown")
+				span.glyphicon.glyphicon-option-vertical
+			ul.dropdown-menu
+				li.active
+					.col-md-12
+						.checkbox
+							label
+								input.js_avatar_options(type="checkbox",checked=true,value="speech") 
+								small Enable Speech Recognition
+				li
+					.col-md-12
+						.checkbox
+							label
+								input.js_avatar_options(type="checkbox",checked=true,value="avatar") 
+								small  Enable Character Animation
+
+	.canvasAvatar.canvasAvatarLoading
+		video#js_open.hide(autoplay=false)
+			source(src="/video/open",type="video/mp4")
+		video#js_close(autoplay=false)
+			source(src="/video/close",type="video/mp4")
+	.powered
+		p Powered by Bytize, Inc. 
+		a(href="https://bytize.org" target="_blank") Engage with us 

@@ -1,0 +1,30 @@
+{
+  "name": "talking_virtual_avatar_chatbot",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "./node_modules/.bin/gulp build"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.82.0",
+    "body-parser": "^1.17.1",
+    "connect-redis": "^3.2.0",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.15.2",
+    "express-session": "^1.15.1",
+    "express-validator": "^5.3.1",
+    "fuse-js-latest": "^3.1.0",
+    "helmet": "^3.5.0",
+    "morgan": "^1.8.1",
+    "pug": "^2.0.0-beta11",
+    "request": "^2.81.0",
+    "request-ip": "^2.0.1"
+  },
+  "devDependencies": {
+    "del": "^4.1.1",
+    "gulp": "^4.0.2",
+    "gulp-clean-css": "^4.2.0",
+    "gulp-concat": "^2.6.0",
+    "gulp-minify": "3.1.0",
+    "gulp-rev": "^9.0.0"
+  }
+}
