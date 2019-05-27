@@ -1,0 +1,14 @@
+{
+  "name": "buy-new-car-lambda",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "fuse-js-latest": "^2.6.2",
+    "install": "^0.10.1",
+    "npm": "^5.3.0",
+    "parse-price": "^1.1.3"
+  }
+}

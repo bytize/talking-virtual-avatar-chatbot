@@ -3,7 +3,6 @@ html
 	head
 		meta(charset='UTF-8')
 		meta(name='viewport', content='width=device-width, initial-scale=1')
-		meta(name='csrf-token', content=csrfToken)
 		title Talking Virtual Avatar Chatbot - Alize
 		if env == "development"
 			link(rel="stylesheet",href="/css/bootstrap.css")
@@ -11,10 +10,6 @@ html
 			link(rel="stylesheet",href="/css/style.css")
 		else
 			link(rel="stylesheet",href="/dist/css/"+pugFunctions.assetPath("stylesheet.css"))
-		if env == "development"
-			script(src="/js/jquery.min.js")
-		else
-			script(src="/dist/js/"+pugFunctions.assetPath("bundle.js"))
 	body
 		.fb-root
 		script.
@@ -42,6 +37,7 @@ html
 				include _avatar
 				include _chat
 		if env == "development"
+			script(src="/js/jquery.min.js")
 			script(src="/js/bootstrap.min.js")
 			script(src="/js/VideoFrame.js")
 			script(src="/js/soundmanager.js")
@@ -49,5 +45,7 @@ html
 			script(src="/js/annyang.min.js")
 			script(src="/js/siriwave.js")
 			script(src="/js/script.js")
+		else
+			script(src="/dist/js/"+pugFunctions.assetPath("bundle.js"))
 	.user-action-overlay
 		button(type="button")#js_start.btn.btn-success.btn-lg Start

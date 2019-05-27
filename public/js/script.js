@@ -135,18 +135,7 @@ $(document).ready(function(){
 
 	var audio;
 	var openVideo,closeVideo;
-	var playAudio,isOpenVideoDownloaded,isCloseVideoDownloaded,isVideosDownloaded = false;
-	
-	$("#js_animate").click(function(e){
-		e.preventDefault();
-		animateMessageSubmit();
-	});
-
-	$("#js_message_animate").keypress(function (e) {
-	  if (e.which == 13) {
-	    animateMessageSubmit();
-	  }
-	});
+	var playAudio,isVideosDownloaded = false, introInitiated = false;
 
 	$("#js_send").click(function(e){
 		e.preventDefault();
@@ -193,12 +182,7 @@ $(document).ready(function(){
 				if(responseCard.buttons.length){
 					var buttons = responseCard.buttons;
 					var type = responseCard.subTitle;
-					var html = "";
-					if(type == "buttonImage"){
-						html = renderButtonImage(buttons);
-					} else {
-						html = renderButton(buttons);
-					}
+					var html = renderButton(buttons);
 					if(html!="")
 						insertBotMessage(html);
 				}
@@ -207,13 +191,6 @@ $(document).ready(function(){
 		}
 	}
 
-	function renderButtonImage(buttons){
-		var html = "<ul>";
-		$.each(buttons,function(i,v){
-		 	html = html+"<li><a class='js_click' data-value='"+v.value+"' href='#'>"+v.text+"</a></li>"
-		});
-		return html = html + "</ul>";
-	}
 	function renderButton(buttons){
 		var html = "<ul>";
 		$.each(buttons,function(i,v){
@@ -230,22 +207,13 @@ $(document).ready(function(){
 		getBotResponse(text);
 	});
 
-	function animateMessageSubmit(){
-		var text = $("#js_message_animate").val();
-		if(text!="" && text.length < 300){
-			$("#js_message_animate").val('');
-			insertBotMessage(text);
-			talk(text);
-		}
-	}
-
 	$(window).on('beforeunload blur', function(){
 		resetVideos();
 		resetAudio();
 	});
 
 	$(window).focus(function(){
-		triggerVideoDownloaded();
+		init();
 	});
 
 	function resetVideos(){
@@ -274,16 +242,22 @@ $(document).ready(function(){
 		$(this).parent().hide();
 	});
 
-	
-
 	function init(){
-		openVideo = initVideo('js_open',renderOpen);
-		isOpenVideoDownloaded = true;
-		triggerVideoDownloaded();
+		if(!isVideosDownloaded) {
+			openVideo = initVideo('js_open',renderOpen);
+			closeVideo = initVideo('js_close',renderClose);
+			isVideosDownloaded = true;
+		}
 		
-		closeVideo = initVideo('js_close',renderClose);
-		isCloseVideoDownloaded = true;
-		triggerVideoDownloaded();
+		$('.canvasAvatar').removeClass("canvasAvatarLoading");
+		if(enableCharAnimation){
+			initVideos();
+		}
+
+		if(!introInitiated){
+			intro();
+			introInitiated = true;
+		}
 	}
 
 	var previousFrameOpen = 0;
@@ -315,11 +289,20 @@ $(document).ready(function(){
 			if(playAudio && (frame == (endFrame -2) || audio.playState))
 			{
 				setAction();
-				sync(frame);
+				sync();
 			}
 			render(closeVideo,frame);
 		}
 		previousFrameClose = frame;
+	}
+
+	function render(video,frame){
+		if(frame == endFrame){
+			if(nextAction){
+				switchAction(nextAction);
+			}
+         	video.seekTo({ frame: startFrame });
+        }
 	}
 
 	var isActionSet = false;
@@ -350,7 +333,6 @@ $(document).ready(function(){
 		}
 	}
 
-
 	function switchAction(action){
 		openVideo.video.pause();
 		openVideo.stopListen();
@@ -364,30 +346,9 @@ $(document).ready(function(){
 		closeVideo.seekTo({frame: startFrame});
 		closeVideo.video.play();
 		closeVideo.listen("frame");
-	}	
-
-	function render(video,frame){
-		if(frame == endFrame){
-			if(nextAction){
-				switchAction(nextAction);
-			}
-         	video.seekTo({ frame: startFrame });
-        }
 	}
 
-	function pauseSpeechRec(){
-		if(enableSpeech && annyang.isListening() && listening){
-			annyang.pause();
-		}
-	}
-
-	function resumeSpeechRec(){
-		if(enableSpeech && listening && !annyang.isListening()){
-			annyang.resume();
-		}
-	}
-
-	function sync(frame){
+	function sync(){
 		if(playAudio && speechMarks.length && speechMarkIndex < speechMarks.length){
 			if(!audio.playState){
 				audio.play();
@@ -416,23 +377,17 @@ $(document).ready(function(){
 		}
 	}
 
-	var introInitiated = false;
-
-	function triggerVideoDownloaded(){
-		isVideosDownloaded = isOpenVideoDownloaded && isCloseVideoDownloaded;
-		if(isVideosDownloaded){
-			$('.canvasAvatar').removeClass("canvasAvatarLoading");
-			if(enableCharAnimation){
-				initVideos();
-			}
-
-			if(!introInitiated){
-				intro();
-				introInitiated = true;
-			}
+	function pauseSpeechRec(){
+		if(enableSpeech && annyang.isListening() && listening){
+			annyang.pause();
 		}
 	}
 
+	function resumeSpeechRec(){
+		if(enableSpeech && listening && !annyang.isListening()){
+			annyang.resume();
+		}
+	}
 
 	function initVideos(){
 		nextAction = actions.a;

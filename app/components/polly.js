@@ -1,6 +1,5 @@
 const config = require("../config/index")();
 const AWS = require("aws-sdk");
-const Fs = require('fs');
 
 module.exports = () => {
 	var creds = new AWS.Credentials(
