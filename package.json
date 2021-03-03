@@ -12,7 +12,7 @@
     "express-session": "^1.15.1",
     "helmet": "^3.5.0",
     "morgan": "^1.8.1",
-    "pug": "^2.0.0-beta11"
+    "pug": "^3.0.1"
   },
   "devDependencies": {
     "del": "^4.1.1",
