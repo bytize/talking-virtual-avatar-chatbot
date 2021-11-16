@@ -5,7 +5,7 @@
     "build": "./node_modules/.bin/gulp build"
   },
   "dependencies": {
-    "aws-sdk": "^2.82.0",
+    "aws-sdk": "^2.814.0",
     "body-parser": "^1.17.1",
     "connect-redis": "^3.2.0",
     "express": "^4.15.2",
